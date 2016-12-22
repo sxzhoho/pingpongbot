@@ -68,5 +68,14 @@ class Game(object):
                 self.player_red.num_set += 1
                 self.result=self.player_red.name+" Won Set "+str(self.current_set)
                 self.set_over = True
-        
+
+        if self.player_black.num_set == 2:
+            self.game_over = True
+            say_something (self.player_black.name+" Won "+str(self.player_black.num_set)+" Sets to "+str(self.player_red.num_set)+" against "+self.player_red.name)
+            #update_score(player_black,player_red,self.player_black.num_set,self.player_red.num_set)
+        if self.player_red.num_set == 2:
+            self.game_over = True
+            say_something (self.player_red.name+" Won "+str(self.player_red.num_set)+" Sets to "+str(self.player_black.num_set)+" against "+self.player_black.name)
+            #update_score(player_red,player_black,self.player_red.num_set,self.player_black.num_set)
+
         

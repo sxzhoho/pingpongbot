@@ -32,11 +32,7 @@ MIFAREReader = None
 player_red = None
 player_black = None
 
-
 pong_hardware_init()
-
-
-
 
 signal.signal(signal.SIGINT, end_read)
 MIFAREReader = MFRC522.MFRC522()
@@ -116,7 +112,17 @@ while running:
 			say_something(new_game.score)
 			if(new_game.result):
 				say_something(new_game.result)
-
+			if(new_game.set_over):
+				say_something("new game start")
+				new_game.new_set()
+			if new_game.player_black.num_set == 2:
+				new_game.game_over = True
+				say_something (new_game.player_black.name+" Won "+str(new_game.player_black.num_set)+" Sets to "+str(new_game.player_red.num_set)+" against "+new_game.player_red.name)
+	            #update_score(player_black,player_red,new_game.player_black.num_set,new_game.player_red.num_set)
+			if new_game.player_red.num_set == 2:
+				new_game.game_over = True
+				say_something (new_game.player_red.name+" Won "+str(new_game.player_red.num_set)+" Sets to "+str(new_game.player_black.num_set)+" against "+new_game.player_black.name)
+	
 		if get_redup_btn_press():
 			new_game.player_red.score += 1
 			new_game.last_point_assigned_to = "r"
@@ -125,21 +131,17 @@ while running:
 			say_something(new_game.score)
 			if(new_game.result):
 				say_something(new_game.result)
-
-		if self.player_black.num_set == 2:
-            self.game_over = True
-            say_something (self.player_black.name+" Won "+str(self.player_black.num_set)+" Sets to "+str(self.player_red.num_set)+" against "+self.player_red.name)
-            #update_score(player_black,player_red,self.player_black.num_set,self.player_red.num_set)
-        if self.player_red.num_set == 2:
-            self.game_over = True
-            say_something (self.player_red.name+" Won "+str(self.player_red.num_set)+" Sets to "+str(self.player_black.num_set)+" against "+self.player_black.name)
-            #update_score(player_red,player_black,self.player_red.num_set,self.player_black.num_set)
-
-        if not self.game_over:
-            if self.set_over:
-                say_something("New Set")
-                self.new_set()
-		#else:
+			if(new_game.set_over):
+				say_something("new game start")
+				new_game.new_set()
+			if new_game.player_black.num_set == 2:
+				new_game.game_over = True
+				say_something (new_game.player_black.name+" Won "+str(new_game.player_black.num_set)+" Sets to "+str(new_game.player_red.num_set)+" against "+new_game.player_red.name)
+				#update_score(player_black,player_red,new_game.player_black.num_set,new_game.player_red.num_set)
+			if new_game.player_red.num_set == 2:
+				new_game.game_over = True
+				say_something (new_game.player_red.name+" Won "+str(new_game.player_red.num_set)+" Sets to "+str(new_game.player_black.num_set)+" against "+new_game.player_black.name)
+			#else:
 		#	if not new_game.deuce:
 		#		if ((new_game.player_black.score + new_game.player_red.score) % 5) == 0 and new_game.last_point_assigned_to != "none":
 		#			print("dd Switch Serve")
